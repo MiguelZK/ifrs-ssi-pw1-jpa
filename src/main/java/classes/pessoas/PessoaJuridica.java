@@ -2,8 +2,9 @@ package classes.pessoas;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Set;
+import java.util.List;
 import java.util.TreeSet;
+import java.util.Set;
 import javax.persistence.Entity;
 
 import classes.dao.PessoaJuridicaDAO;
@@ -17,7 +18,11 @@ public class PessoaJuridica extends Cliente implements Serializable {
 
 	public PessoaJuridica() {}
 
-	public PessoaJuridica(String razaoSocial, String cnpj, String endereco, int ddd, long numfone, Set<Pedido> pedidos) {
+	public PessoaJuridica(String razaoSocial, String cnpj, String endereco, int ddd, long numfone) {
+		this(razaoSocial, cnpj, endereco, ddd, numfone, null);
+	}
+
+	public PessoaJuridica(String razaoSocial, String cnpj, String endereco, int ddd, long numfone, List<Pedido> pedidos) {
 		super(endereco, ddd, numfone, pedidos);
 		this.razaoSocial = razaoSocial;
 		this.cnpj = cnpj;
@@ -69,8 +74,8 @@ public class PessoaJuridica extends Cliente implements Serializable {
 		return new PessoaJuridicaDAO().insert(this);
 	}
 
-	public TreeSet<PessoaJuridica> listAll() {
-		TreeSet<PessoaJuridica> pessoas = new TreeSet<>();
+	public Set<PessoaJuridica> listAll() {
+		Set<PessoaJuridica> pessoas = new TreeSet<>();
 		pessoas.addAll(new PessoaJuridicaDAO().listAll());
 		System.out.println("------------------------");
 		return pessoas;

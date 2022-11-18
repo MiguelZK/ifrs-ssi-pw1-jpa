@@ -6,6 +6,7 @@ import classes.contatos.Telefone;
 import classes.dao.PessoaFisicaDAO;
 import classes.pedidos.*;
 import classes.pessoas.PessoaFisica;
+import classes.util.Situacao;
 
 public class Teste02 {
 
@@ -46,22 +47,24 @@ public class Teste02 {
 		ItemPedido bomba = new ItemPedido("Bomba de chimarrão", 31.2, 1);
 		ItemPedido erva = new ItemPedido("Erva Mate", 15.0, 2);
 
-		Set<ItemPedido> itensPed1Pes1 = new HashSet<ItemPedido>();
+		List<ItemPedido> itensPed1Pes1 = new ArrayList<ItemPedido>();
 		itensPed1Pes1.add(varal);
 		itensPed1Pes1.add(vassoura);
 
-		Set<ItemPedido> itensPed2Pes1 = new HashSet<ItemPedido>();
+		List<ItemPedido> itensPed2Pes1 = new ArrayList<ItemPedido>();
 		itensPed2Pes1.add(cuia);
 		itensPed2Pes1.add(bomba);
 		itensPed2Pes1.add(erva);
 
 		pedido1Pessoa1.setData(new Date());
 		pedido1Pessoa1.setItens(itensPed1Pes1);
-
+		pedido1Pessoa1.setSituacao(Situacao.CANCELADO);
+		
 		pedido2Pessoa1.setData(new Date());
 		pedido2Pessoa1.setItens(itensPed2Pes1);
+		pedido2Pessoa1.setSituacao(Situacao.AGUARDANDO);
 
-		Set<Pedido> pedidosPes1 = new HashSet<Pedido>();
+		List<Pedido> pedidosPes1 = new ArrayList<Pedido>();
 		pedidosPes1.add(pedido1Pessoa1);
 		pedidosPes1.add(pedido2Pessoa1);
 		pessoa1.setPedidos(pedidosPes1);
@@ -70,15 +73,16 @@ public class Teste02 {
 		ItemPedido racao = new ItemPedido("Comiiiiiiida 1kg", 25.3, 4);
 		ItemPedido caminha = new ItemPedido("Minha caminha", 120.0, 1);
 
-		Set<ItemPedido> itensPed1Shenka = new HashSet<ItemPedido>();
+		List<ItemPedido> itensPed1Shenka = new ArrayList<ItemPedido>();
 		itensPed1Shenka.add(pratoComidinha);
 		itensPed1Shenka.add(racao);
 		itensPed1Shenka.add(caminha);
 
 		pedidoShenka.setData(new Date());
 		pedidoShenka.setItens(itensPed1Shenka);
+		pedidoShenka.setSituacao(Situacao.ANDAMENTO);
 
-		Set<Pedido> pedidosShenka = new HashSet<Pedido>();
+		List<Pedido> pedidosShenka = new ArrayList<Pedido>();
 		pedidosShenka.add(pedidoShenka);
 		pessoa2.setPedidos(pedidosShenka);
 

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.lang.Long;
 import java.util.Date;
 import java.util.Objects;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -30,9 +30,9 @@ public class Pedido implements Serializable {
 
 	private double valor;
 
-	@OneToMany(cascade = CascadeType.PERSIST)
+	@OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
 	@JoinColumn(name = "numero")
-	private Set<ItemPedido> itens;
+	private List<ItemPedido> itens;
 
 	@Enumerated(EnumType.STRING)
 	private Situacao situacao;
@@ -40,7 +40,7 @@ public class Pedido implements Serializable {
 	public Pedido() {
 	}
 
-	public Pedido(Date data, double valor, Set<ItemPedido> itens, Situacao situacao) {
+	public Pedido(Date data, double valor, List<ItemPedido> itens, Situacao situacao) {
 		this.data = data;
 		this.valor = valor;
 		this.itens = itens;
@@ -71,11 +71,11 @@ public class Pedido implements Serializable {
 		this.valor = valor;
 	}
 
-	public Set<ItemPedido> getItens() {
+	public List<ItemPedido> getItens() {
 		return itens;
 	}
 
-	public void setItens(Set<ItemPedido> itens) {
+	public void setItens(List<ItemPedido> itens) {
 		this.itens = itens;
 		calculaValorPedido();
 	}
@@ -104,7 +104,7 @@ public class Pedido implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(numero);
+		return Objects.hash(data, itens, numero, situacao, valor);
 	}
 
 	@Override
@@ -116,7 +116,9 @@ public class Pedido implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pedido other = (Pedido) obj;
-		return Objects.equals(numero, other.numero);
+		return Objects.equals(data, other.data) && Objects.equals(itens, other.itens)
+				&& Objects.equals(numero, other.numero) && situacao == other.situacao
+				&& Double.doubleToLongBits(valor) == Double.doubleToLongBits(other.valor);
 	}
 
 }

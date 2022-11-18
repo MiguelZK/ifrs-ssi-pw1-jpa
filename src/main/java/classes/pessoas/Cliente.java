@@ -2,8 +2,10 @@ package classes.pessoas;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -40,15 +42,15 @@ public abstract class Cliente implements Serializable {
 //	@Column(nullable = false)
 	@OneToMany (cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "id_cliente")
-	private Set<Pedido> pedidos;
+	private List<Pedido> pedidos;
 
 	public Cliente() {}
 	
-	public Cliente(String endereco, int ddd, long numfone, Set<Pedido> pedidos) {
+	public Cliente(String endereco, int ddd, long numfone, List<Pedido> pedidos) {
 		this(endereco, null, ddd, numfone, pedidos);
 	}	
 
-	public Cliente(String endereco, Set<String> emails, int ddd, long numfone, Set<Pedido> pedidos) {
+	public Cliente(String endereco, Set<String> emails, int ddd, long numfone, List<Pedido> pedidos) {
 		this.endereco = endereco;
 		this.data = new Date();
 		this.emails = emails;
@@ -64,7 +66,7 @@ public abstract class Cliente implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(data, emails, endereco, id, pedidos, telefone);
 	}
 
 	@Override
@@ -76,7 +78,9 @@ public abstract class Cliente implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(data, other.data) && Objects.equals(emails, other.emails)
+				&& Objects.equals(endereco, other.endereco) && Objects.equals(id, other.id)
+				&& Objects.equals(pedidos, other.pedidos) && Objects.equals(telefone, other.telefone);
 	}
 
 	public Long getId() {
@@ -111,11 +115,11 @@ public abstract class Cliente implements Serializable {
 		this.telefone = telefone;
 	}
 
-	public Set<Pedido> getPedidos() {
+	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
 
-	public void setPedidos(Set<Pedido> pedidos) {
+	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
 

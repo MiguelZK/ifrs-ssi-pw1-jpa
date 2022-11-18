@@ -28,7 +28,7 @@ public class Teste01 {
 		varal.setDescricao("Varal");
 		varal.setQuantidade(2);
 		varal.setValorUnitario(40.5);
-		Set<ItemPedido> itens = new HashSet<ItemPedido>();
+		List<ItemPedido> itens = new ArrayList<ItemPedido>();
 		itens.add(varal);
 
 		pedido1.setData(new Date());
@@ -43,7 +43,7 @@ public class Teste01 {
 //				.reduce(0D, (double subtotal, ItemPedido item.get) -> 1);
 
 		pedido1.setValor(valorPedido);
-		Set<Pedido> pedidos = new HashSet<Pedido>();
+		List<Pedido> pedidos = new ArrayList<Pedido>();
 		pedidos.add(pedido1);
 		pessoa1.setPedidos(pedidos);
 
