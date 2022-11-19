@@ -79,8 +79,22 @@ public class ItemPedidoDAO {
 			List<ItemPedido> clientes = query.getResultList();
 			return clientes;
 		} catch (RuntimeException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			return null;
 		} 
+	}
+	
+	public List<ItemPedido> findAll(String descricao) {
+		try {
+			em = JPAUtil.getEntityManager();
+			TypedQuery<ItemPedido> query = em.createQuery(
+					"SELECT obj FROM ItemPedido obj WHERE obj.descricao = :descricao", ItemPedido.class);
+			query.setParameter("descricao", descricao);
+			List<ItemPedido> clientes = query.getResultList();
+			return clientes;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

@@ -1,6 +1,8 @@
 package classes.dao;
 
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -10,8 +12,9 @@ import classes.util.JPAUtil;
 public class PessoaFisicaDAO {
 
 	private EntityManager em;
-	
-	public PessoaFisicaDAO() {}
+
+	public PessoaFisicaDAO() {
+	}
 
 	public boolean insert(PessoaFisica pessoaFisica) {
 		try {
@@ -43,8 +46,8 @@ public class PessoaFisicaDAO {
 			return false;
 		}
 	}
-	
-	public PessoaFisica find(int id) {
+
+	public PessoaFisica find(Long id) {
 		try {
 			em = JPAUtil.getEntityManager();
 			PessoaFisica pessoafisica = em.find(PessoaFisica.class, id);
@@ -54,7 +57,7 @@ public class PessoaFisicaDAO {
 				em.getTransaction().rollback();
 			}
 			return null;
-		} 
+		}
 	}
 
 	public boolean remove(Long id) {
@@ -76,12 +79,26 @@ public class PessoaFisicaDAO {
 	public List<PessoaFisica> listAll() {
 		try {
 			em = JPAUtil.getEntityManager();
-			TypedQuery<PessoaFisica> query = em.createQuery("SELECT obj FROM Usuario obj", PessoaFisica.class);
+			TypedQuery<PessoaFisica> query = em.createQuery("SELECT obj FROM PessoaFisica obj", PessoaFisica.class);
 			List<PessoaFisica> clientes = query.getResultList();
 			return clientes;
 		} catch (RuntimeException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			return null;
-		} 
+		}
+	}
+
+	public List<PessoaFisica> findAll(String nome) {
+		try {
+			em = JPAUtil.getEntityManager();
+			TypedQuery<PessoaFisica> query = em.createQuery(
+					"SELECT obj FROM PessoaFisica obj WHERE obj.nome = :nome", PessoaFisica.class);
+			query.setParameter("nome", nome);
+			List<PessoaFisica> clientes = query.getResultList();
+			return clientes;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

@@ -14,7 +14,7 @@ public class PedidoDAO {
 	public PedidoDAO() {}
 
 	public boolean insert(Pedido pedido) {
-		try {
+		try {			
 			em = JPAUtil.getEntityManager();
 			em.getTransaction().begin();
 			em.persist(pedido);

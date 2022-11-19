@@ -7,7 +7,7 @@ import classes.dao.PessoaFisicaDAO;
 import classes.pedidos.*;
 import classes.pessoas.PessoaFisica;
 
-public class Teste01 {
+public class TesteMapeamento1 {
 
 	public static void main(String[] args) {
 
@@ -17,7 +17,7 @@ public class Teste01 {
 		pessoa1.setEndereco("Rua do IFRS");
 		pessoa1.setTelefone(new Telefone(51, 33332222));
 
-		Set<String> emails = new HashSet<String>();
+		List<String> emails = new ArrayList<String>();
 		emails.add("miguel@email.com");
 		emails.add("miguelzk@email.com");
 		pessoa1.setEmails(emails);

@@ -8,7 +8,7 @@ import classes.pedidos.*;
 import classes.pessoas.PessoaFisica;
 import classes.util.Situacao;
 
-public class Teste02 {
+public class TesteMapeamento2 {
 
 	public static void main(String[] args) {
 
@@ -22,12 +22,12 @@ public class Teste02 {
 		PessoaFisica pessoa2 = new PessoaFisica("Shenka, a cadela", "000.000.000-00", "Caminha", 51, 999999999);
 		pessoa2.setData();
 
-		Set<String> emails1 = new HashSet<String>();
+		List<String> emails1 = new ArrayList<String>();
 		emails1.add("miguel@email.com");
 		emails1.add("miguelzk@email.com");
 		pessoa1.setEmails(emails1);
 
-		Set<String> emails2 = new HashSet<String>();
+		List<String> emails2 = new ArrayList<String>();
 		emails2.add("shenka@email.com");
 		emails2.add("mondonga@email.com");
 		pessoa2.setEmails(emails2);
@@ -59,7 +59,7 @@ public class Teste02 {
 		pedido1Pessoa1.setData(new Date());
 		pedido1Pessoa1.setItens(itensPed1Pes1);
 		pedido1Pessoa1.setSituacao(Situacao.CANCELADO);
-		
+
 		pedido2Pessoa1.setData(new Date());
 		pedido2Pessoa1.setItens(itensPed2Pes1);
 		pedido2Pessoa1.setSituacao(Situacao.AGUARDANDO);
@@ -89,11 +89,15 @@ public class Teste02 {
 		PessoaFisicaDAO pesDAO1 = new PessoaFisicaDAO();
 		
 		if (pesDAO1.insert(pessoa1)) {
-			System.out.println("Pessoa Física inserida com sucesso");
-		}
-
+		System.out.println("Pessoa Física inserida com sucesso"); }
+		
 		if (pesDAO1.insert(pessoa2)) {
-			System.out.println("Pessoa Física inserida com sucesso");
+		System.out.println("Pessoa Física inserida com sucesso"); }
+		
+		List<PessoaFisica> todos = pesDAO1.listAll();
+		for (PessoaFisica pf : todos) {
+			System.out.println(pf);
+			System.out.println("-------------------------");
 		}
 	}
 

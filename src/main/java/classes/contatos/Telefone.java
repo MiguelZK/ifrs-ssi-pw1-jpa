@@ -16,7 +16,7 @@ public class Telefone implements Serializable {
 
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id_telefone;
+	private long id_telefone;
 	private int ddd;
 	private long numfone;
 
@@ -48,7 +48,7 @@ public class Telefone implements Serializable {
 		this.numfone = numfone;
 	}
 
-	public int getId_telefone() {
+	public long getId_telefone() {
 		return id_telefone;
 	}
 

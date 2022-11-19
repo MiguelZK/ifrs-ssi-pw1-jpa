@@ -24,16 +24,23 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long numero;
 
-	@Temporal(TemporalType.DATE)
+	/**
+	 * A data foi colocada como TIMESTAMP para registro de data e hora do cadastro do pedido.
+	 */
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_pedido", nullable = false)
 	private Date data;
 
 	private double valor;
 
-	@OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "numero")
 	private List<ItemPedido> itens;
 
+	/**
+	 * A opção pelo EnumType.STRING foi visando a facilidade de leitura no banco mesmo,
+		apesar de o mesmo ser irrelevante quando o mesmo entra em produção com diversos itens.
+	 */
 	@Enumerated(EnumType.STRING)
 	private Situacao situacao;
 

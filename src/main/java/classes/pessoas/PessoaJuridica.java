@@ -2,9 +2,9 @@ package classes.pessoas;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 import java.util.List;
 import java.util.TreeSet;
-import java.util.Set;
 import javax.persistence.Entity;
 
 import classes.dao.PessoaJuridicaDAO;
@@ -68,21 +68,6 @@ public class PessoaJuridica extends Cliente implements Serializable {
 			return false;
 		PessoaJuridica other = (PessoaJuridica) obj;
 		return Objects.equals(cnpj, other.cnpj) && Objects.equals(razaoSocial, other.razaoSocial);
-	}
-
-	public boolean insert() {
-		return new PessoaJuridicaDAO().insert(this);
-	}
-
-	public Set<PessoaJuridica> listAll() {
-		Set<PessoaJuridica> pessoas = new TreeSet<>();
-		pessoas.addAll(new PessoaJuridicaDAO().listAll());
-		System.out.println("------------------------");
-		return pessoas;
-	}
-
-	public boolean update() {
-		return new PessoaJuridicaDAO().update(this);
 	}
 
 }

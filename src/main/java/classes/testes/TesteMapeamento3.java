@@ -7,14 +7,15 @@ import classes.pedidos.*;
 import classes.pessoas.PessoaJuridica;
 import classes.util.Situacao;
 
-public class Teste03 {
+public class TesteMapeamento3 {
 
 	public static void main(String[] args) {
 
-		PessoaJuridica obspoa1 = new PessoaJuridica("ObservaPOA", "12.345.678-0001/01", "Rua Siqueira Campos", 51, 32163216);
+		PessoaJuridica obspoa1 = new PessoaJuridica("ObservaPOA", "12.345.678-0001/01", "Rua Siqueira Campos", 51,
+				32163216);
 		obspoa1.setData();
 
-		Set<String> emails1 = new HashSet<String>();
+		List<String> emails1 = new ArrayList<String>();
 		emails1.add("obspoa@email.com");
 		emails1.add("observatorio@email.com");
 		obspoa1.setEmails(emails1);
@@ -33,7 +34,7 @@ public class Teste03 {
 		itensPed1.add(canetaAzul);
 		itensPed1.add(canetaVerm);
 		itensPed1.add(canetaPreta);
-		
+
 		List<ItemPedido> itensPed2 = new ArrayList<ItemPedido>();
 		itensPed2.add(papelA4);
 		itensPed2.add(papelA3);
@@ -45,22 +46,22 @@ public class Teste03 {
 		pedidoObspoa2.setData(new Date());
 		pedidoObspoa2.setItens(itensPed2);
 		pedidoObspoa2.setSituacao(Situacao.AGUARDANDO);
-		
+
 		List<Pedido> pedidosObsPOA = new ArrayList<Pedido>();
 		pedidosObsPOA.add(pedidoObspoa1);
 		pedidosObsPOA.add(pedidoObspoa2);
 		obspoa1.setPedidos(pedidosObsPOA);
-		
+
 		PessoaJuridicaDAO pesDAO1 = new PessoaJuridicaDAO();
-		
+
 		if (pesDAO1.insert(obspoa1)) {
-			System.out.println("Pessoa Física inserida com sucesso");
+			System.out.println("Cadastro realizado com sucesso");
 		}
-		
-//		obspoa1.setEndereco("Rua Joao Manoel");
-//		if (pesDAO1.update(obspoa1)) {
-//			System.out.println("Cadastro atualizado com sucesso");
-//		}
+
+		obspoa1.setEndereco("Rua Joao Manoel");
+		if (pesDAO1.update(obspoa1)) {
+			System.out.println("Cadastro atualizado com sucesso");
+		}
 	}
 
 }

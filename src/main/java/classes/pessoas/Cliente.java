@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
+import java.util.List;
 import java.util.List;
 
 import javax.persistence.*;
@@ -27,21 +27,21 @@ public abstract class Cliente implements Serializable {
 	private Long id;
 	private String endereco;
 	
-	@Temporal(TemporalType.DATE)
+	/**
+	 * A data foi colocada como TIMESTAMP para registro de data e hora do cadastro do cliente.
+	 */
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_cadastro", nullable = false)
 	private java.util.Date data;
 	
-//	@CollectionTable(name="emails_do_cliente")
-	@ElementCollection
-	private Set<String> emails;
+	@ElementCollection (fetch = FetchType.EAGER)
+	private List<String> emails;
 	
-//	@Column(nullable = false)
 	@OneToOne (cascade = CascadeType.PERSIST, orphanRemoval = true)
 	private Telefone telefone;
 	
-//	@Column(nullable = false)
-	@OneToMany (cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "id_cliente")
+	@OneToMany (cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_cliente")	
 	private List<Pedido> pedidos;
 
 	public Cliente() {}
@@ -50,7 +50,7 @@ public abstract class Cliente implements Serializable {
 		this(endereco, null, ddd, numfone, pedidos);
 	}	
 
-	public Cliente(String endereco, Set<String> emails, int ddd, long numfone, List<Pedido> pedidos) {
+	public Cliente(String endereco, List<String> emails, int ddd, long numfone, List<Pedido> pedidos) {
 		this.endereco = endereco;
 		this.data = new Date();
 		this.emails = emails;
@@ -99,11 +99,11 @@ public abstract class Cliente implements Serializable {
 		this.endereco = endereco;
 	}
 
-	public Set<String> getEmails() {
+	public List<String> getEmails() {
 		return emails;
 	}
 
-	public void setEmails(Set<String> emails) {
+	public void setEmails(List<String> emails) {
 		this.emails = emails;
 	}
 

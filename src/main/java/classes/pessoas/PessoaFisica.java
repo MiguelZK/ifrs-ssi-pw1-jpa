@@ -2,9 +2,10 @@ package classes.pessoas;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 import java.util.List;
 import java.util.TreeSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
 
@@ -69,21 +70,6 @@ public class PessoaFisica extends Cliente implements Serializable {
 			return false;
 		PessoaFisica other = (PessoaFisica) obj;
 		return Objects.equals(cpf, other.cpf) && Objects.equals(nome, other.nome);
-	}
-
-	public boolean insert() {
-		return new PessoaFisicaDAO().insert(this);
-	}
-
-	public Set<PessoaFisica> listAll() {
-		Set<PessoaFisica> pessoas = new TreeSet<>();
-		pessoas.addAll(new PessoaFisicaDAO().listAll());
-		System.out.println("------------------------");
-		return pessoas;
-	}
-
-	public boolean update() {
-		return new PessoaFisicaDAO().update(this);
 	}
 
 }

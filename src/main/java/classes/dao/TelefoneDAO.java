@@ -83,4 +83,18 @@ public class TelefoneDAO {
 			return null;
 		} 
 	}
+	
+	public List<Telefone> findAll(long numfone) {
+		try {
+			em = JPAUtil.getEntityManager();
+			TypedQuery<Telefone> query = em.createQuery(
+					"SELECT obj FROM Telefone obj WHERE obj.numfone = :numfone", Telefone.class);
+			query.setParameter("numfone", numfone);
+			List<Telefone> clientes = query.getResultList();
+			return clientes;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

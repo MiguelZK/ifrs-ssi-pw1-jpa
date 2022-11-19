@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import classes.pessoas.PessoaFisica;
 import classes.pessoas.PessoaJuridica;
 import classes.util.JPAUtil;
 
@@ -75,12 +76,26 @@ public class PessoaJuridicaDAO {
 	public List<PessoaJuridica> listAll() {
 		try {
 			em = JPAUtil.getEntityManager();
-			TypedQuery<PessoaJuridica> query = em.createQuery("SELECT obj FROM Usuario obj", PessoaJuridica.class);
+			TypedQuery<PessoaJuridica> query = em.createQuery("SELECT obj FROM PessoaJuridica obj", PessoaJuridica.class);
 			List<PessoaJuridica> clientes = query.getResultList();
 			return clientes;
 		} catch (RuntimeException e) {
 			//e.printStackTrace();
 			return null;
 		} 
+	}
+	
+	public List<PessoaJuridica> findAll(String nome) {
+		try {
+			em = JPAUtil.getEntityManager();
+			TypedQuery<PessoaJuridica> query = em.createQuery(
+					"SELECT obj FROM PessoaJuridica obj WHERE obj.razaoSocial = :nome", PessoaJuridica.class);
+			query.setParameter("nome", nome);
+			List<PessoaJuridica> clientes = query.getResultList();
+			return clientes;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
